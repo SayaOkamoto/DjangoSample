@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 # Create your models here.
 class Person(models.Model):
@@ -12,6 +13,8 @@ class Person(models.Model):
     birth_date = models.DateField()
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=50)
+    def __unicode__(self):
+        return unicode(self.first_name)
 
     def baby_boomer_status(self):
         "Returns the person's baby-boomer status."
@@ -37,3 +40,9 @@ class Album(models.Model):
     name = models.CharField(max_length=100)
     release_date = models.DateField()
     num_stars = models.IntegerField()
+
+class ContactForm(forms.Form):
+    subject = forms.CharField(max_length=100)
+    message = forms.CharField()
+    sender = forms.EmailField()
+    cc_myself = forms.BooleanField(required=False)
